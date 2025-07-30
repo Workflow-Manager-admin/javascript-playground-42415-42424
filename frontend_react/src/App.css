@@ -1,104 +1,266 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
+  --primary: #1976d2;
+  --secondary: #424242;
+  --accent: #fbc02d;
+
+  /* Theme vars */
   --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
+  --bg-secondary: #f6f8fb;
   --text-primary: #282c34;
-  --text-secondary: #61dafb;
   --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --button-bg: #1976d2;
+  --button-bg-hover: #145ca6;
+  --button-text: #fff;
+  --button-radius: 6px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
-
+body,
 .App {
-  text-align: center;
   background-color: var(--bg-primary);
   color: var(--text-primary);
+  margin: 0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, "Liberation Sans", sans-serif;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.playground-root {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+}
+
+.playground-header {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 2vw;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.playground-title {
+  font-weight: bold;
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.playground-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: var(--button-radius);
+  padding: 8px 18px;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  transition: background 0.16s, transform 0.05s, box-shadow 0.16s;
+}
+
+.btn:hover {
+  background: var(--button-bg-hover);
+  transform: translateY(-1px) scale(1.01);
+}
+
+.playground-main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+  padding: 2.5vw 0;
+  gap: 2vw;
+  background: var(--bg-primary);
+}
+
+.editor-pane,
+.output-pane {
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+  min-width: 280px;
+  max-width: 700px;
+  margin-top: 0;
+}
+
+.editor-header,
+.output-header {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 1.07em;
+  margin-bottom: 6px;
+  margin-left: 1px;
+}
+
+.editor-container {
+  flex: 1;
   position: relative;
+  width: 100%;
+  min-height: 320px;
+}
+
+.editor-textarea {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 320px;
+  font-size: 1.08em;
+  line-height: 1.48;
+  padding: 12px 10px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 240px;
+  color: var(--text-primary);
+}
+
+.editor-highlight {
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+  user-select: none;
+}
+
+.output-pane {
+  margin-left: 2vw;
+  width: 45vw;
+  min-width: 210px;
+  max-width: 500px;
+}
+
+.output-header {
+  margin-top: 6px;
+}
+
+.output-container {
+  background: #f7fbff;
+  border-radius: 6px;
+  min-height: 100px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.7em;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.output {
+  font-size: 1.13em;
+  font-family: "source-code-pro", Menlo, Monaco, "Consolas", "Courier New", monospace;
+  color: #1976d2;
+  padding: 13px 8px;
+}
+
+.output-error {
+  color: #b72e3a;
+  padding: 10px 10px;
+  background: #fbe3e4;
+  border-radius: 4px;
+  margin: 14px 4px 6px 4px;
+  font-family: inherit;
+}
+
+.share-link-box {
+  margin-top: 16px;
+  padding: 10px 6px 8px 6px;
+  background: #f8fafd;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  width: 94%;
+}
+
+.playground-footer {
+  padding: 1.5em 0 0.8em;
+  text-align: center;
+  background: var(--bg-primary);
+  color: #aaa;
+  font-size: 0.97em;
+  border-top: 1px solid var(--border-color);
 }
 
 .App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.16s;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+.App-link:hover {
+  color: #145ca6;
+  text-decoration: underline;
+}
+
+/* Syntax highlight for code in editor */
+.token.keyword {
+  color: #1976d2;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.token.string {
+  color: #388e3c;
+}
+.token.number {
+  color: #ad1457;
+}
+.token.comment {
+  color: #808080;
+  font-style: italic;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
-}
-
-.theme-toggle:active {
-  transform: translateY(0);
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .editor-pane,
+  .output-pane {
+    width: 100vw;
+    max-width: unset;
+    min-width: 170px;
   }
-  to {
-    transform: rotate(360deg);
+  .playground-main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    padding: 1vw 3vw 0 3vw;
+  }
+  .output-pane {
+    margin-left: 0;
+    margin-top: 24px;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 700px) {
+  .playground-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-left: 10px;
   }
+  .editor-pane,
+  .output-pane {
+    width: 98vw;
+  }
+  .editor-header,
+  .output-header {
+    font-size: 0.98em;
+  }
+  .editor-container {
+    min-height: 140px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  background: #eee;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #b3c5de;
+  border-radius: 5px;
 }
